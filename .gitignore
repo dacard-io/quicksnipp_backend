@@ -99,9 +99,12 @@ ENV/
 
 # mypy
 .mypy_cache/
+<<<<<<< HEAD
 
 # Ignore secret settings!
 secrets.py
 
 # Ignore migrations
 migrations/
+=======
+>>>>>>> 3e3591f1e00b709a6fc7e37095cb22bf3cfa9c6c
