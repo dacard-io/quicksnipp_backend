@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'groups.apps.GroupsConfig',
     'snippets.apps.SnippetsConfig'
 ]
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -130,3 +132,9 @@ REST_FRAMEWORK = {
     'rest_framework.renderers.JSONRenderer',
 )
 '''
+
+# CORS Whitelist Settings (Always enable localhost)
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost',
+    '127.0.0.1'
+)

@@ -1,8 +1,14 @@
 from rest_framework import serializers
 
-from .models import Snippet, File
+from .models import Group, Snippet, File
 
 # Serializer to create representations of data into JSON. Using ModelSerializer for ease of use
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        snippets = serializers.StringRelatedField(many=True) # StringRelated outputs the whole string, instead of just the ID
+        fields = ('id', 'title', 'label_color', 'snippets')
+
 class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
