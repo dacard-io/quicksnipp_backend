@@ -8,6 +8,7 @@ Schema is as follows:
 
 # Code Group/collection model. Will have one-to-many relationship with Snippet
 class Group(models.Model):
+    owner = models.ForeignKey('auth.User', null=True, on_delete=models.CASCADE)  # Owner of group for querying
     title = models.CharField(max_length=100, blank=True)
     description = models.CharField(max_length=250, blank=True)
     label_color = models.CharField(max_length=7, blank=True) # Will hold hex value (7 characters including # pound symbol)!
@@ -20,6 +21,7 @@ class Snippet(models.Model):
     group_id = models.ForeignKey(Group, related_name='snippets', on_delete=models.CASCADE, null=True, blank=True) #I'm allowing blanks to allow uncategorized snippets
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey('auth.User', null=True, on_delete=models.CASCADE)  # Owner of snippet for querying
     title = models.CharField(max_length=100, blank=True)
     description = models.CharField(max_length=250, blank=True)
 
