@@ -23,7 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost'
+]
 
 
 # Application definition
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'groups.apps.GroupsConfig',
     'snippets.apps.SnippetsConfig'
@@ -122,9 +125,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
         'rest_framework.permissions.IsAuthenticated'
-    ]
-
-
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 
 }
 ''' This will disable the browsable API. Place when API completed!
@@ -135,6 +139,6 @@ REST_FRAMEWORK = {
 
 # CORS Whitelist Settings (Always enable localhost)
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost',
+    'localhost:3000',
     '127.0.0.1'
 )

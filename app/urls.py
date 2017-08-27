@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import serializers, viewsets, routers
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.authtoken import views as drf_views
 
 from snippets.views import GroupCreateView
 from snippets.views import GroupView
@@ -27,7 +28,8 @@ from snippets.views import FileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # For the default Django Rest Framework admin interface
+    url(r'^auth$', drf_views.obtain_auth_token, name='auth'), # For token authorization! Allows AJAX client to POST username and password and receive a token
     url(r'^groups/$', GroupCreateView.as_view(), name="create"),
     url(r'^group/(?P<pk>[0-9]+)$', GroupView.as_view(), name="view"),
     url(r'^snippets/$', SnippetCreateView.as_view(), name="create"),
