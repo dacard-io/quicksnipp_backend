@@ -16,6 +16,7 @@ class Group(models.Model):
     class Meta:
         ordering = ('title',)
 
+
 # Snippet model. Will have one-to-many relationship with Content
 class Snippet(models.Model):
     group_id = models.ForeignKey(Group, related_name='snippets', on_delete=models.SET_NULL, null=True, blank=True) #I'm allowing blanks to allow uncategorized snippets. On delete, set snippet foreign keys to NULL!
