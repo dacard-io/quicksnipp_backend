@@ -8,7 +8,7 @@ Schema is as follows:
 
 # Code Group/collection model. Will have one-to-many relationship with Snippet
 class Group(models.Model):
-    owner = models.ForeignKey('auth.User', null=True, on_delete=models.SET_NULL)  # Owner of group for querying. On delete, set snippet foreign keys to NULL!
+    owner = models.ForeignKey('auth.User', null=True, on_delete=models.CASCADE)  # Owner of group for querying. On delete, set snippet foreign keys to NULL!
     title = models.CharField(max_length=100, blank=True)
     description = models.CharField(max_length=250, blank=True)
     label_color = models.CharField(max_length=7, blank=True) # Will hold hex value (7 characters including # pound symbol)!

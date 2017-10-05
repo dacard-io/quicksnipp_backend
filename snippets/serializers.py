@@ -1,8 +1,34 @@
 from rest_framework import serializers
 
+from django.contrib.auth.models import User
 from .models import Group, Snippet, File
 
 # Serializer to create representations of data into JSON. Using ModelSerializer for ease of use
+class UserSerializer(serializers.ModelSerializer):
+    #groups = serializers.PrimaryKeyRelatedField(many=True, queryset=Group.objects.all())
+    #snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            if attr == 'password':
+                instance.set_password(value)
+            else:
+                setattr(instance, attr, value)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'password')
+
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
