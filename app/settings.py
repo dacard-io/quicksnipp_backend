@@ -24,7 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost'
+    'localhost',
+    '52.91.139.212',
+    'ec2-52-91-139-212.compute-1.amazonaws.com',
+    'api.quicksnipp.com'
 ]
 
 
