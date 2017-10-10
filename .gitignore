@@ -105,6 +105,6 @@ ENV/
 secrets.py
 
 # Ignore migrations
-migrations/
+#migrations/
 =======
 >>>>>>> 3e3591f1e00b709a6fc7e37095cb22bf3cfa9c6c
