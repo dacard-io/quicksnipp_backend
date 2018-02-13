@@ -1,0 +1,26 @@
+h1 {
+	/*font-size: 4em !important;*/
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+}
+.col {
+	display: block;
+	width: 33.3%;
+	padding: 1em;
+}
+.col.large {
+	width: 66.6%;
+}
+
+@media (max-width: 650px) {
+	.col {
+		width: 50%;
+	}
+	.notes {
+		width: 100%;
+	}
+}

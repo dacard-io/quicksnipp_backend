@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+      <title>API v1 | QuickSnipp</title>
+      <meta charset="utf-8"/>
+      <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+      
+      <!-- Your stylesheets below this line -->
+      <link rel="stylesheet" href="{% static 'css/hack.css' %}"/>
+      <link rel="stylesheet" href="{% static 'css/dark-grey.css' %}"/>
+      <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous"/>
+  </head>
+  <body class="hack dark-grey">
+      <!--[if lt IE 8]>
+          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+      <div class="main container">
+          <br/>
+          <div class="card">
+            <header class="card-header">QuickSnipp API Server - v1.0</header>
+            <div class="card-content">
+                  <div class="inner text-center">View Quicksnipp's various REST endpoints along with usage for different requests. Quicksnipp is built with <b>Python, Django + DRF</b> for the API server. Front-end uses <b>Node.js, Express, and React</b></div>
+            </div>
+          </div>
+
+          <br/>
+          <div class="row">
+
+              <!-- Endpoints List -->
+              <div class="col">
+                  <div class="alert alert-info"><i class="fa fa-code"></i>&nbsp;REST Endpoints</div>
+                  <div class="menu">
+                    <a class="menu-item active" href="#auth"><div>» /auth</div></a>
+                    <a class="menu-item" href="#groups"><div>» /groups</div></a>
+                    <a class="menu-item" href="#group"><div>» /group/{id}</div></a>
+                    <a class="menu-item" href="#snippets"><div>» /snippets</div></a>
+                    <a class="menu-item" href="#snippet"><div>» /snippet/{id}</div></a>
+                    <a class="menu-item" href="#files"><div>» /files</div></a>
+                    <a class="menu-item" href="#file"><div>» /files/{id}</div></a>
+                    <a class="menu-item" href="#users"><div>» /users</div></a>
+                    <a class="menu-item" href="#user"><div>» /user/{id}</div></a>
+                  </div>
+              </div>
+
+              <!-- Endpoint Doc / auth -->
+              <div class="col large doc-section" href="auth">
+                <h2><i>/auth</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-success">POST</button>
+                        <p>Request an authentication token to be used along with other requests.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Body)</b> - username: [String]</li>
+                          <li><b>(Body)</b> - password: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="groups">
+                <h2><i>/groups</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get all groups available to the currently authenticated user.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-success">POST</button>
+                        <p>Create a new group for the authenticated user</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - user_id: [Integer]</li>
+                          <li><b>(Body)</b> - collection_id: [Integer]</li>
+                          <li><b>(Body)</b> - name: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                          <li><b>(Body)</b> - type: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="group">
+                <h2><i>/group/{id}</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get a specific group by ID. Must be a snippet owned by the authenticated user.</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-warning">PATCH</button>
+                        <p>Update a specific group's details. Must be a group owned by the authenticated user.</p>
+                        <b>Optional Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - title: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                          <li><b>(Body)</b> - label_color: [String or HEX color code]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-error">DELETE</button>
+                        <p>Delete a specific group. Must be a group owned by the authenticated user.</p>
+                        <p><i>Note: Deleteing a code group will preserve snippets and their related files!</i></p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="snippets">
+                <h2><i>/snippets</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get all snippets available to the currently authenticated user.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-success">POST</button>
+                        <p>Create a new snippet for the authenticated user</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - user_id: [Integer]</li>
+                          <li><b>(Body)</b> - group_id: [Integer]</li>
+                          <li><b>(Body)</b> - title: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="snippet">
+                <h2><i>/snippet/{id}</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get a specific snippet by ID. Must be a snippet owned by the authenticated user.</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-warning">PATCH</button>
+                        <p>Update a specific snippet's details. Must be a snippet owned by the authenticated user.</p>
+                        <b>Optional Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - title: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                          <li><b>(Body)</b> - group_id: [Integer]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-error">DELETE</button>
+                        <p>Delete a specific snippet. Must be a snippet owned by the authenticated user.</p>
+                        <p><i>Note: Deleteing a code snippet will remove their related files!</i></p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="files">
+                <h2><i>/files</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get all files available to the currently authenticated user.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-success">POST</button>
+                        <p>Create a new file for the authenticated user</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - title: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                          <li><b>(Body)</b> - snippet_id: [Integer]</li>
+                          <li><b>(Body)</b> - language: [String]</li>
+                          <li><b>(Body)</b> - code: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="file">
+                <h2><i>/file/{id}</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get a specific file by ID. Must be a file owned by the authenticated user.</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-warning">PATCH</button>
+                        <p>Update a specific file's details. Must be a file owned by the authenticated user.</p>
+                        <b>Optional Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - title: [String]</li>
+                          <li><b>(Body)</b> - description: [String]</li>
+                          <li><b>(Body)</b> - snippet_id: [Integer]</li>
+                          <li><b>(Body)</b> - language: [String]</li>
+                          <li><b>(Body)</b> - code: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-error">DELETE</button>
+                        <p>Delete a specific file. Must be a file owned by the authenticated user.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="users">
+                <h2><i>/users</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-success">POST</button>
+                        <p>Create a new user. Does not require authentication.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Body)</b> - username: [String]</li>
+                          <li><b>(Body)</b> - email: [String]</li>
+                          <li><b>(Body)</b> - password: [Integer]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+
+              <!-- Endpoint Doc -->
+              <div class="col large doc-section" href="user">
+                <h2><i>/user/{id}</i></h2>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-primary">GET</button>
+                        <p>Get a specific user and details by ID. Must be a user that is currently authenticated.</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-warning">PATCH</button>
+                        <p>Update a specific user's details. Must be a user that is currently authenticated.</p>
+                        <b>Optional Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - username: [String]</li>
+                          <li><b>(Body)</b> - email: [String]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+                <br/>
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-error">DELETE</button>
+                        <p>Delete a specific user. Must be a user that is currently authenticated.</p>
+                        <p><i>Note: Deleteing a user will remove all their related groups, snippets, and files!</i></p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template -->
+              <!-- Colors: GET[primary], POST[sucess], PATCH[warning], DELETE[error]
+              <div class="col large" href="groups">
+                <div class="card">
+                  <div class="card-content">
+                      <div class="inner">
+                        <button class="btn btn-warning">PATCH</button>
+                        <p>Edit/update collection.</p>
+                        <b>Required Parameters</b>
+                        <ul>
+                          <li><b>(Header)</b> - Authorization Token</li>
+                          <li><b>(Body)</b> - user_id: [Integer]</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              -->
+          </div>
+      </div>
+      
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+  $(document).ready(function(){
+
+    $doc_section = $('.doc-section');
+    $menu_item = $('.menu-item');
+
+    function clearSections() {
+      $doc_section.each(function(){
+        // Hide all sections initially
+        $(this).hide()
+      })
+    }
+    function openSection(section) {
+      clearSections();
+      section = section.replace('#',''); // Remove hash #
+      $('.doc-section[href$="' + section + '"]').show();
+    }
+
+    clearSections()
+    // The initial section will be auth
+    $('.doc-section[href$="auth"]').show();
+
+    $menu_item.on('mousedown', function(){
+      $(this).siblings().removeClass('active');
+      $(this).addClass('active');
+      openSection($(this).attr('href'))
+    });
+
+  });
+  </script>
+
+  </body>
+</html>

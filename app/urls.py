@@ -21,6 +21,8 @@ from rest_framework.authtoken import views as drf_views
 
 from rest_framework.routers import DefaultRouter
 
+from . import views
+
 from snippets.views import UserCreateView
 from snippets.views import UserView
 from snippets.views import GroupCreateView
@@ -36,6 +38,7 @@ from snippets.views import FileView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index, name='index'), # API Homepage view
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), # For the default Django Rest Framework admin interface
     url(r'^auth$', drf_views.obtain_auth_token, name='auth'), # For token authorization! Allows AJAX client to POST username and password and receive a token
     url(r'^users/$', UserCreateView.as_view(), name="view"),
